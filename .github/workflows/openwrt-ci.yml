@@ -22,18 +22,18 @@ jobs:
 
   build_openwrt:
 
-    name: Build OpenWrt
+    name: 构建 OpenWrt
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
 
-      - name: Checkout
+      - name: 检测环境
         uses: actions/checkout@master
         with:
           ref: master
 
-      - name: Space cleanup
+      - name: 清理
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
@@ -55,7 +55,7 @@ jobs:
 
           df -h
 
-      - name: Update feeds
+      - name: 更新 feeds
         run: |
           ./scripts/feeds update -a
           ./scripts/feeds install -a
@@ -195,7 +195,7 @@ jobs:
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
 
-      - name: Make download
+      - name: 操作下载
         run: |
           make download -j8 || make download -j1 V=s
           find ./dl/ -size -1024c -exec rm -f {} \;
